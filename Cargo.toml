@@ -1,0 +1,30 @@
+[package]
+name = "portfolio"
+version = "0.1.0"
+edition = "2021"
+
+#[profile.release]
+#strip=true
+#panic="abort"
+#codegen-units=1
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies.rocket]
+version = "0.5.0-rc.2"
+features = ["json"]
+
+[dependencies.serde]
+version = "1.0.138"
+
+[dependencies.rocket_dyn_templates]
+version = "0.1.0-rc.2"
+features = ["tera"]
+
+[dependencies.rusqlite]
+version = "0.27.0"
+features = ["bundled"]
+
+#[dependencies.bson]
+#version = "2.3.0"
