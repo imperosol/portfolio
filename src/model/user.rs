@@ -56,25 +56,23 @@ impl User {
         result
     }
 
-    // pub fn from_username(username: &str) -> Option<User> {
-    //     let username= match User::parse_username(username) {
-    //         Ok(u) => u,
-    //         Err(()) => return None,
-    //     };
-    //     let conn = rusqlite::Connection::open("./database/db.sqlite").unwrap();
-    //     let query = "SELECT id, name, surname, email, github FROM users WHERE surname=?1 AND name=?2";
-    //     let mut stmt = conn.prepare(query).unwrap();
-    //     // get the first user returned by the query
-    //     let user = stmt.query_map(
-    //         params![username.get(0), username.get(1)],
-    //         |row| Ok(User::from_row(row)),
-    //     ).ok().unwrap().next();
-    //     match user {
-    //         Some(user) => { Some(user.unwrap()) }
-    //         None => { None }
-    //     }
-    // }
-    //
+
+    pub fn from_token(username: &str) -> Option<User> {
+        let path_str = format!("./database/json/{}.json", username);
+        let json_path = Path::new(path_str.as_str());
+        match File::open(json_path) {
+            Err(_) => None,
+            Ok(file) => {
+                Some(serde_json::from_reader(BufReader::new(file)).unwrap())
+            }
+        }
+    }
+
+    pub fn url_alias(name: &[String; 2]) -> String {
+        format!("{}-{}/portfolio", name[0].to_lowercase(), name[1].to_lowercase())
+    }
+
+    // Probably dead code, you can remove if you want
     // pub fn get_all() -> Vec<User> {
     //     let conn = rusqlite::Connection::open("./database/db.sqlite").unwrap();
     //     let query = "SELECT id, name, surname, email, github FROM users";
@@ -87,22 +85,4 @@ impl User {
     //         .collect::<Vec<User>>();
     //     users
     // }
-
-    pub fn get_json(username: &str) -> Option<User> {
-        let path_str = format!("./database/json/{}.json", username);
-        println!("{}", path_str);
-        let json_path = Path::new(path_str.as_str());
-        println!("{}", json_path.exists());
-        println!("{:?}", json_path);
-        match File::open(json_path) {
-            Err(_) => None,
-            Ok(file) => {
-                Some(serde_json::from_reader(BufReader::new(file)).unwrap())
-            }
-        }
-    }
-
-    pub fn url_alias(name: &[String; 2]) -> String {
-        format!("{}-{}", name[0].to_lowercase(), name[1].to_lowercase())
-    }
 }

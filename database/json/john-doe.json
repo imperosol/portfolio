@@ -1,0 +1,8 @@
+{
+  "id": 0,
+  "name": "Doe",
+  "surname": "John",
+  "email": "john.doe@mail.com",
+  "github": "johnDoe",
+  "gitlab": "johnDoe_but_on_gitlab"
+}
