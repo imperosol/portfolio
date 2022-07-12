@@ -4,42 +4,27 @@ use std::path::Path;
 use rusqlite;
 use rocket::serde::json::serde_json;
 use rocket::serde::{Deserialize, Serialize};
+use super::competence::Competence;
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, FromForm)]
 pub struct User {
-    pub id: u32,
     pub name: String,
     pub surname: String,
     pub email: Option<String>,
     pub github: Option<String>,
     pub gitlab: Option<String>,
+    pub competences: Option<Vec<Competence>>
 }
 
 impl User {
     pub fn empty() -> User {
         User {
-            id: 0,
             name: "".to_string(),
             surname: "".to_string(),
             email: None,
             github: None,
-            gitlab: None
-        }
-    }
-
-    fn parse_username(username: &str) -> Result<[String; 2], ()> {
-        let username: Vec<String> = username
-            .split("-")
-            .map(|s| s.chars().nth(0).unwrap().to_uppercase().to_string() + &s[1..])
-            .collect();
-        if username.len() != 2 {
-            Err(())
-        } else {
-            if username.iter().all(|s| s.chars().all(|c| c.is_alphabetic())) {
-                Ok([username[0].chars().collect(), username[1].chars().collect()])
-            } else {
-                Err(())
-            }
+            gitlab: None,
+            competences: None
         }
     }
 
@@ -68,21 +53,17 @@ impl User {
         }
     }
 
-    pub fn url_alias(name: &[String; 2]) -> String {
-        format!("{}-{}/portfolio", name[0].to_lowercase(), name[1].to_lowercase())
+    pub fn create_json(&self) -> Result<(), &'static str> {
+        let username = format!("{}-{}", self.surname.to_lowercase(), self.name.to_lowercase());
+        let path_name = format!("./database/json/{}.json", username);
+        let path = Path::new(path_name.as_str());
+        match path.exists() {
+            true => Err("File already exists"),
+            false => {
+                let file = File::create(path).unwrap();
+                serde_json::to_writer_pretty(file, &self).expect("Can't create file");
+                Ok(())
+            }
+        }
     }
-
-    // Probably dead code, you can remove if you want
-    // pub fn get_all() -> Vec<User> {
-    //     let conn = rusqlite::Connection::open("./database/db.sqlite").unwrap();
-    //     let query = "SELECT id, name, surname, email, github FROM users";
-    //     let users = conn
-    //         .prepare(query)
-    //         .unwrap()
-    //         .query_map([], |row| Ok(User::from_row(row)))
-    //         .unwrap()
-    //         .map(|user| user.unwrap())
-    //         .collect::<Vec<User>>();
-    //     users
-    // }
 }

@@ -154,7 +154,6 @@ section .content {
 }
 
 .accordion-body {
-    padding: 20px;
 }
 
 .accordion-body:not(.collapse) {
@@ -180,3 +179,32 @@ section .content {
 /*.accordion {*/
 
 /*}*/
+
+
+/*.card-text {*/
+/*    background-color: #4a4e51;*/
+/*}*/
+
+.card-list {
+    display: flex;
+}
+
+.card {
+    border: none;
+    background-color: #4a4e51;
+    max-width: 200px;
+    margin: 20px;
+}
+
+.card-title {
+    border: none;
+}
+
+.card-body {
+    text-justify: auto;
+    text-align: justify;
+    border: none;
+
+    border-radius: 5px;
+    background-color: #4a4e51;
+}

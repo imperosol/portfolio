@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue</title>
+    <link rel="stylesheet" href="/public/css/bootstrap/bootstrap.css">
+    <script defer src="/public/js/bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/css/main_style.css">
+    <script defer src="/public/js/main_script.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark navbar-main">
+    <div class="container-fluid nav-container">
+        <a class="navbar-brand" href="#">Ton nom ici</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="#">You know the rules</a>
+                <a class="nav-link" href="#">And so do I</a>
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Admin</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<aside>
+    <section class="abstract">
+        <div class="content">
+            <img src="/public/img/notlikethis.png" alt="Ma photo de profil">
+            <form action="./add" method="post">
+                <input type="hidden" value="0" name="id">
+                <label> Prénom
+                    <input type="text" name="surname">
+                </label>
+                <label for="name"> Nom de famille
+                    <input type="text" name="name">
+                </label>
+                <label for="email"> email
+                    <input type="text" name="email">
+                </label>
+                <button type="submit" name="submit">Valider</button>
+            </form>
+        </div>
+    </section>
+</aside>
+<main>
+    <section>
+        <header>
+            Mes compétences
+        </header>
+        <div class="content">
+            <article class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header" type="button" data-bs-toggle="collapse"
+                         data-bs-target="#competences-body-1" aria-expanded="true"
+                         aria-controls="competences-body-1">
+                        C
+                        <!--                        <button class="accordion-header" >-->
+                        <!--                            C-->
+                        <!--                        </button>-->
+                    </div>
+                    <div class="accordion-body" id="competences-body-1">
+                        zefzef
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        fdsfs
+                    </div>
+                    ffqsf
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>
