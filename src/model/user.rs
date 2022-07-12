@@ -1,6 +1,8 @@
-use std::fs::File;
+use std::fs;
+use std::fs::{DirEntry, File};
 use std::io::{BufReader};
 use std::path::Path;
+use rocket::http::uri::fmt::Kind::Path;
 use rusqlite;
 use rocket::serde::json::serde_json;
 use rocket::serde::{Deserialize, Serialize};
@@ -29,16 +31,14 @@ impl User {
     }
 
     pub fn get_all_names() -> Vec<[String; 2]> {
-        let conn = rusqlite::Connection::open("./database/db.sqlite").unwrap();
-        let query = "SELECT surname, name FROM users";
-        let result = conn
-            .prepare(query)
+        let files = fs::read_dir("./database/json")
             .unwrap()
-            .query_map([], |row| Ok([row.get(0)?, row.get(1)?]))
-            .unwrap()
-            .map(|user| user.unwrap())
-            .collect::<Vec<[String; 2]>>();
-        result
+            .filter(|f| f.unwrap().path().is_file())
+            .map(|f| f.unwrap().file_name().to_str().unwrap())
+            .collect::<Vec<String>>();
+        files.iter()
+            .map(|s| s.split("-").map(|i| i.to_string()).collect::<[String;2]>())
+            .collect()
     }
 
 
