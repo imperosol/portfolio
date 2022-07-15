@@ -32,8 +32,8 @@ impl User {
         let files = fs::read_dir("./database/json")
             .unwrap()
             .map(|f| f.unwrap())
-            .filter(|f| f.path().is_file())
-            .map(|f| f.file_name().to_str().unwrap().to_string())
+            .filter(|f| f.path().is_file() && f.path().extension().unwrap().to_str().unwrap() == "json")
+            .map(|f| f.path().file_stem().unwrap().to_str().unwrap().to_string())
             .collect::<Vec<String>>();
         let mut res: Vec<[String; 2]> = Vec::with_capacity(files.len());
         for file in files.into_iter() {
