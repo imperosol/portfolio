@@ -1,9 +1,7 @@
 use std::fs;
-use std::fs::{DirEntry, File};
+use std::fs::{File};
 use std::io::{BufReader};
 use std::path::Path;
-use rocket::http::uri::fmt::Kind::Path;
-use rusqlite;
 use rocket::serde::json::serde_json;
 use rocket::serde::{Deserialize, Serialize};
 use super::competence::Competence;
@@ -33,12 +31,20 @@ impl User {
     pub fn get_all_names() -> Vec<[String; 2]> {
         let files = fs::read_dir("./database/json")
             .unwrap()
-            .filter(|f| f.unwrap().path().is_file())
-            .map(|f| f.unwrap().file_name().to_str().unwrap())
+            .map(|f| f.unwrap())
+            .filter(|f| f.path().is_file())
+            .map(|f| f.file_name().to_str().unwrap().to_string())
             .collect::<Vec<String>>();
-        files.iter()
-            .map(|s| s.split("-").map(|i| i.to_string()).collect::<[String;2]>())
-            .collect()
+        let mut res: Vec<[String; 2]> = Vec::with_capacity(files.len());
+        for file in files.into_iter() {
+            let name = file.split("-").collect::<Vec<&str>>();
+            if name.len() == 2 {
+                let surname = name[0].to_string();
+                let family_name = name[1].to_string();
+                res.push([surname, family_name]);
+            }
+        }
+        res
     }
 
 
