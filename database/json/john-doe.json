@@ -1,8 +1,47 @@
 {
-  "id": 0,
   "name": "Doe",
   "surname": "John",
   "email": "john.doe@mail.com",
-  "github": "johnDoe",
-  "gitlab": "johnDoe_but_on_gitlab"
+  "github": "johndoe",
+  "gitlab": "john_doe",
+  "competences": [
+    {
+      "language": "C",
+      "projects": [
+        {
+          "name": "Maze",
+          "description": "Lorem ipsum dolor sit amet",
+          "image": "notlikethis.png"
+        }
+      ]
+    },
+    {
+      "language": "Rust",
+      "projects": [
+        {
+          "name": "Portfolio",
+          "description": "La page que tu es en train de consulter",
+          "image": "notlikethis.png"
+        },
+        {
+          "name": "Validators",
+          "description": "Lorem ipsum dolor sit amet",
+          "image": "notlikethis.png"
+        }
+      ]
+    },
+    {
+      "language": "Python",
+      "projects": [
+        {
+          "name": "Démineur",
+          "description": "Lorem ipsum dolor sit amet",
+          "image": "notlikethis.png"
+        }
+      ]
+    }
+  ],
+  "background": {
+    "school": []
+  }
 }

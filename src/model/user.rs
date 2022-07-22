@@ -4,6 +4,7 @@ use std::io::{BufReader};
 use std::path::Path;
 use rocket::serde::json::serde_json;
 use rocket::serde::{Deserialize, Serialize};
+use crate::model::background::Background;
 use super::competence::Competence;
 
 #[derive(Debug, Deserialize, Serialize, FromForm)]
@@ -13,18 +14,20 @@ pub struct User {
     pub email: Option<String>,
     pub github: Option<String>,
     pub gitlab: Option<String>,
-    pub competences: Option<Vec<Competence>>
+    pub competences: Option<Vec<Competence>>,
+    pub background: Option<Vec<Background>>
 }
 
 impl User {
     pub fn empty() -> User {
         User {
-            name: "".to_string(),
-            surname: "".to_string(),
+            name: String::from(""),
+            surname: String::from(""),
             email: None,
             github: None,
             gitlab: None,
-            competences: None
+            competences: None,
+            background: None
         }
     }
 
@@ -46,7 +49,6 @@ impl User {
         }
         res
     }
-
 
     pub fn from_token(username: &str) -> Option<User> {
         let path_str = format!("./database/json/{}.json", username);

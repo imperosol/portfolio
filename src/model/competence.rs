@@ -8,7 +8,8 @@ pub struct Competence {
 
 #[derive(Debug, Deserialize, Serialize, FromForm)]
 pub struct Project {
-    pub name: Option<String>,
+    pub name: String,
     pub description: Option<String>,
-    pub image: Option<String>
+    pub image: Option<String>,
+    pub github: Option<String>
 }

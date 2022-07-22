@@ -1,0 +1,19 @@
+{% extends "base" %}
+
+{% block content %}
+    <aside>
+        {% include "portfolio/user_page/user_aside" %}
+    </aside>
+    <main>
+        {% if user.competences %}
+            <section>
+                {% include "portfolio/user_page/competences" %}
+            </section>
+        {% endif %}
+        {% if user.background %}
+            <section>
+                {% include "portfolio/user_page/parcours" %}
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}

@@ -25,7 +25,6 @@ fn index() -> RawHtml<String> {
 }
 
 
-
 #[launch]
 fn rocket() -> _ {
     rocket::build()

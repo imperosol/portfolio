@@ -1,0 +1,20 @@
+<header>
+    Parcours
+</header>
+<div class="content">
+    <ul>
+        {% for bgd in user.background %}
+            <li>
+                {{ loop.index }} :
+                <ul>
+                    <li>type : {{ bgd.bg_type }}</li>
+                    <li>nom : {{ bgd.name }}</li>
+                    <li>début : {{ bgd.start_year }}</li>
+                    {% if bgd.end_year %}
+                        <li>fin : {{ bgd.end_year }}</li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
